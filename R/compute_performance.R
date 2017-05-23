@@ -1,5 +1,5 @@
 source('load_packages.r')
-load_packages()
+load.packages()
 
 ma.type <- 'EMA'
 setwd(file.path(dirs$data, ma.type))

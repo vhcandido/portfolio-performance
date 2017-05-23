@@ -1,5 +1,5 @@
 # Loading required packages and data
-source('loading.data.r')
+source('load_data.r')
 
 ################################################################################
 # MOVING AVERAGES

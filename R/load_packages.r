@@ -1,7 +1,7 @@
 ################################################################################
 # LOADING PACKAGES
 ################################################################################
-load_packages <- function(extra = NULL) {
+load.packages <- function(extra = NULL) {
 	packages <- c(
 		'xts',
 		'TTR',
@@ -15,6 +15,13 @@ load_packages <- function(extra = NULL) {
 		cat('Loading', pkg, '\n')
 		suppressMessages( require(pkg, character.only = T, quietly = T)	)
 	}
+}
+
+detach.all.packages <- function() {
+	info <- sessionInfo()
+	pkg.names <- names(info$otherPkgs)
+	pkg.names <- paste0('package:', pkg.names)
+	lapply(pkg.names, detach, character.only = TRUE, unload = TRUE)
 }
 
 ################################################################################

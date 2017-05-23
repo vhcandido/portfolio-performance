@@ -13,10 +13,17 @@ ma$size.max <- 250
 ma$size.step <- 1
 ma$sizes <- seq(ma$size.min, ma$size.max, ma$size.step)
 ma$sizes.names <- paste0('MA_', ma$sizes)
+
 ma$combn <- t(as.matrix(expand.grid(ma$sizes, ma$sizes)))[2:1,]
 rownames(ma$combn) <- NULL
 ma$combn.names <- apply(ma$combn, 2, paste0, collapse = '_')
 ma$combn.len <- ncol(ma$combn)
+
+ma$combn.upper <- combn(ma$sizes, 2)
+ma$combn.upper.names <- apply(ma$combn.upper, 2, paste0, collapse = '_')
+ma$combn.lower <- ma$combn.upper[2:1,]
+ma$combn.lower.names <- apply(ma$combn.lower, 2, paste0, collapse = '_')
+
 ma$type <- "SMA"
 
 # Compute moving averages

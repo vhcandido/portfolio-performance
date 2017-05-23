@@ -154,9 +154,9 @@ setwd(file.path(dirs$data, ma$type))
 	cat('Saving RData at', rda.file.name, '\n')
 	save.image(file = rda.file.name)
 	
-	# Saving strategy data
-	for(x in paste0( 'strat.', c('positions', 'returns', 'balance'))) {
-		file.name <- paste0(x, '.csv')
-		write.csv(bt[[x]], file = file.name, row.names = time(bt[[x]]))
-	}
+	## Saving strategy data
+	#for(x in paste0( 'strat.', c('positions', 'returns', 'balance'))) {
+	#	file.name <- paste0(x, '.csv')
+	#	write.csv(bt[[x]], file = file.name, row.names = time(bt[[x]]))
+	#}
 setwd(dirs$R)

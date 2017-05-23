@@ -20,7 +20,14 @@ load_packages <- function(extra = NULL) {
 ################################################################################
 # SETTING WORKING DIRECTORY
 ################################################################################
-original.wd <- '~/Documents/usp/research/performance/R'
-setwd(original.wd)
+dirs <- list()
+dirs$repo <- '~/Documents/usp/research/performance'
+dirs$R <- file.path(dirs$repo, 'R')
+dirs$data <- file.path(dirs$repo, 'data')
+dirs$images <- file.path(dirs$repo, 'images')
+setwd(dirs$R)
 
 cat('Currently at\n', getwd(), '\n')
+
+# Number of cores for mclapply
+cores <- 7

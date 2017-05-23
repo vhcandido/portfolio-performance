@@ -2,9 +2,9 @@ source('load_packages.r')
 load_packages()
 
 ma.type <- 'EMA'
-setwd(file.path(original.wd, '../data', ma.type))
+setwd(file.path(dirs$data, ma.type))
 	load('EURUSD_days_1-250-1_.rda')
-setwd(original.wd)
+setwd(dirs$R)
 
 ################################################################################
 # Computing metrics
@@ -64,11 +64,11 @@ results <- results * 100
 
 perf.file.name <- gsub('.rda', 'results.rda', rda.file.name)
 
-setwd(file.path(original.wd, '../data', ma.type))
+setwd(file.path(dirs$data, ma.type))
 	# Saving RData
 	cat('Saving RData at', perf.file.name, '\n')
 	save(results, file = perf.file.name)
-setwd(original.wd)
+setwd(dirs$R)
 
 
 

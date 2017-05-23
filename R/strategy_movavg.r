@@ -1,9 +1,6 @@
 # Loading required packages and data
 source('loading.data.r')
 
-# Number of cores for mclapply
-cores <- 7
-
 ################################################################################
 # MOVING AVERAGES
 ################################################################################
@@ -152,15 +149,14 @@ rda.file.name <- paste(
 	sep = '_'
 )
 
-setwd(file.path(original.wd, '../data', ma$type))
-# Saving RData
-cat('Saving RData at', rda.file.name, '\n')
-save.image(file = rda.file.name)
-
-# Saving strategy data
-for(x in paste0( 'strat.', c('positions', 'returns', 'balance'))) {
-	file.name <- paste0(x, '.csv')
-	write.csv(bt[[x]], file = file.name, row.names = time(bt[[x]]))
-}
-
-setwd(original.wd)
+setwd(file.path(dirs$data, ma$type))
+	# Saving RData
+	cat('Saving RData at', rda.file.name, '\n')
+	save.image(file = rda.file.name)
+	
+	# Saving strategy data
+	for(x in paste0( 'strat.', c('positions', 'returns', 'balance'))) {
+		file.name <- paste0(x, '.csv')
+		write.csv(bt[[x]], file = file.name, row.names = time(bt[[x]]))
+	}
+setwd(dirs$R)

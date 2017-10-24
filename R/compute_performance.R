@@ -1,15 +1,15 @@
 source('load_packages.r')
 load.packages()
 
-ma.type <- 'EMA'
+ma.type <- 'RSI'
 setwd(file.path(dirs$data, ma.type))
-	load('EURUSD_days_1-250-1_.rda')
+	load('EURUSD_days_1-50-1_.rda')
 setwd(dirs$R)
 
 ################################################################################
 # Computing metrics
 # ################################################################################
-ret <- lapply(ma$combn.names, function(x) bt$strat.returns[,x] )
+ret <- lapply(rsi$combn.names, function(x) bt$strat.returns[,x] )
 
 cat('starndart metrics\n')
 final.balance = as.numeric( tail(bt$strat.balance, 1) )
@@ -20,9 +20,9 @@ sd.return = apply(bt$strat.returns, 2, sd)
 sd.loss = apply(bt$strat.returns, 2, DownsideDeviation)
 #sharpe = t(apply(bt$strat.returns, 2, SharpeRatio)), # FUN = c("StdDev", "VaR", "ES")
 cat('sharpe\n')
-sharpe = t(do.call('cbind', mclapply(ret, SharpeRatio, mc.cores = cores) ))
+sharpe = array(0, c(1,3))# t(do.call('cbind', mclapply(ret, SharpeRatio, mc.cores = cores) ))
 cat('sortino\n')
-sortino = unlist(mclapply(ret, SortinoRatio, mc.cores = cores))
+sortino = 0# unlist(mclapply(ret, SortinoRatio, mc.cores = cores))
 cat('upside\n')
 upside.potencial = unlist(mclapply(ret, UpsidePotentialRatio, mc.cores = cores))
 #treynor = t(apply(bt$strat.returns, 2, TreynorRatio)), # missing Rb
@@ -57,7 +57,7 @@ results <- data.frame(
 	CVaR = cvar,
 	maxDD = maxDD,
 	upside.potencial = upside.potencial,
-	row.names = ma$combn.names
+	row.names = rsi$combn.names
 )
 results <- results * 100
 ################################################################################

@@ -1,7 +1,7 @@
 source('load_packages.r')
 load.packages(c('plot3D', 'ggplot2', 'reshape2'))
 
-ma.type <- 'SMA'
+ma.type <- 'EMA'
 
 setwd(file.path(dirs$data, ma.type))
 	load('EURUSD_days_1-250-1_.rda')
@@ -103,7 +103,7 @@ for(i in 1:nrow(bt$strat.balance)) {
 }
 )
 
-quit('n')
+quit('no')
 cat('Generating image2D images with array\n')
 m <- array(bt$strat.balance, c(nrow(bt$strat.balance), 250, 250))
 m <- aperm(m, c(1,3,2))

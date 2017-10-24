@@ -21,7 +21,7 @@ ma$combn.upper.names <- apply(ma$combn.upper, 2, paste0, collapse = '_')
 ma$combn.lower <- ma$combn.upper[2:1,]
 ma$combn.lower.names <- apply(ma$combn.lower, 2, paste0, collapse = '_')
 
-ma$type <- "SMA"
+ma$type <- "EMA"
 
 # Compute moving averages
 all.ma <- lapply(

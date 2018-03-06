@@ -1,22 +1,30 @@
-source('load_packages.r')
-load.packages()
-
 ################################################################################
 # LOADING DATA
 ################################################################################
 
-pair <- 'EURUSD'
-strat.periodicity <- 'days'
-
-img.path <- '~/Documents/usp/research/currency-strength/data'
-filepath <- file.path(img.path, paste0(pair, '.csv'))
-
-# Read as data.frame
-data <- read.csv(filepath, header = T)
-
-# Transform into an xts object ordered by the first column (date)
-data <- xts(data[,-1], order.by = as.POSIXct(data[,1]))
-data <- to_period(data, period = strat.periodicity)
-
-# Check if there's any NA value
-print(any(is.na(data)))
+load.from.disk <- function(
+	filename,
+	dir = '~/Documents/usp/research/currency-strength/data',
+	period = 'days',
+	period.k = 1,
+	date.column = 1,
+	date.format = '%Y-%m-%d %H:%M:%S'
+	) {
+	filepath <- file.path(dir, filename)
+	
+	# Read as data.frame and transform into an xts object ordered by the date column
+	data <- read.table(filepath, header = TRUE, stringsAsFactors = FALSE, sep = ',')
+	dates <- strptime(data[,date.column], '%Y-%m-%d %H:%M:%S', tz='GMT')
+	data <- xts(data[,-1], order.by = dates)
+	
+	data <- switch(period,
+		minutes = to.minutes(data, drop.time = TRUE, k = period.k),
+		hours = to.hourly(data, drop.time = TRUE, k = period.k),
+		days = to.daily(data, drop.time = TRUE),
+		weeks = to.weekly(data, drop.time = TRUE),
+		months = to.monthly(data, drop.time = TRUE, indexAt = 'yearmon'),
+		quarters = to.quarterly(data, drop.time = TRUE, indexAt = 'yearqrt'),
+		years = to.yearly(data, drop.time = TRUE),
+		NULL)
+	return(data)
+}

@@ -23,18 +23,3 @@ detach.all.packages <- function() {
 	pkg.names <- paste0('package:', pkg.names)
 	lapply(pkg.names, detach, character.only = TRUE, unload = TRUE)
 }
-
-################################################################################
-# SETTING WORKING DIRECTORY
-################################################################################
-dirs <- list()
-dirs$repo <- '~/Documents/usp/research/performance'
-dirs$R <- file.path(dirs$repo, 'R')
-dirs$data <- file.path(dirs$repo, 'data')
-dirs$images <- file.path(dirs$repo, 'images')
-setwd(dirs$R)
-
-cat('Currently at\n', getwd(), '\n')
-
-# Number of cores for mclapply
-cores <- 7

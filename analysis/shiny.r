@@ -2,7 +2,7 @@ library(d3heatmap)
 library(shiny)
 library(plot3D)
 
-load('../results/RSI/EURUSD_days_.rda')
+load(file.choose())
 z.range <- range(bt$strat.balance, na.rm = TRUE)
 
 ui <- shinyUI(fluidPage(

@@ -13,10 +13,11 @@ args$periodicity <- as.character(args1[3]) # days
 # SETTING WORKING DIRECTORY
 dirs <- list()
 dirs$repo <- '~/Documents/usp/research/performance'
-dirs$R <- file.path(dirs$repo, 'R')
+dirs$strat <- file.path(dirs$repo, 'strategies')
+dirs$utils <- file.path(dirs$repo, 'utils')
 dirs$data <- file.path(dirs$repo, 'results')
 dirs$images <- file.path(dirs$repo, 'images')
-setwd(dirs$R)
+setwd(dirs$strat)
 
 cat('Currently at\n', getwd(), '\n')
 
@@ -24,10 +25,10 @@ cat('Currently at\n', getwd(), '\n')
 cores <- 7
 ################################################################################
 
-source('load_packages.r')
+source(file.path(dirs$utils, 'load_packages.r'))
 load.packages()
 source('strategy_generic.r')
-source('load_data.r')
+source(file.path(dirs$utils, 'load_data.r'))
 Rcpp::sourceCpp('bbands.cpp')
 
 ##########
@@ -110,7 +111,7 @@ setwd(d)
 cat('Saving RData at', file.path(getwd(), rda.file.name), '\n')
 save(metadata, bt, file = rda.file.name)
 
-setwd(dirs$R)
+setwd(dirs$strat)
 
 
 

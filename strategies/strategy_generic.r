@@ -1,5 +1,5 @@
-source('perm.r')
-source('peaks_bottoms.r')
+source('../utils/perm.r')
+source('../utils/peaks_bottoms.r')
 
 build.metadata <- function(name, params, filter.FUN) {
 	metadata <- list()

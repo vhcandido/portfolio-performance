@@ -11,14 +11,7 @@ args$periodicity <- as.character(args1[3]) # days
 
 ################################################################################
 # SETTING WORKING DIRECTORY
-dirs <- list()
-dirs$repo <- '~/Documents/usp/research/performance'
-dirs$strat <- file.path(dirs$repo, 'strategies')
-dirs$utils <- file.path(dirs$repo, 'utils')
-dirs$data <- file.path(dirs$repo, 'results')
-dirs$images <- file.path(dirs$repo, 'images')
-setwd(dirs$strat)
-
+dirs <- jsonlite::read_json('dirs.json')
 cat('Currently at\n', getwd(), '\n')
 
 # Number of cores for mclapply

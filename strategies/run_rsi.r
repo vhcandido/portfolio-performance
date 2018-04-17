@@ -121,6 +121,7 @@ setwd(d)
 # Saving RData
 cat('Saving RData at', file.path(getwd(), rda.file.name), '\n')
 save(metadata, bt, file = rda.file.name)
+jsonlite::write_json(metadata, path='teste.json')
 
 setwd(dirs$strat)
 

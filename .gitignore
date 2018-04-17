@@ -7,3 +7,6 @@ ignore/*
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints
+
+# Byte-compiled / optimized
+__pycache__

@@ -9,7 +9,15 @@ build.metadata <- function(name, params, filter.FUN) {
 	metadata$params <- list()
 	metadata$params$values <- lapply(params, function(x) x[[2]])
 	metadata$params$names <- lapply(params, function(x) paste0(x[[1]], seq(x[[2]])))
-	# naming lists allows convertion to JSON and parsing it back to list
+	# Naming lists allows convertion to JSON and parsing it back to list
+	# however simplifyVector=TRUE must be passed to jsonlite::read_json()
+	# so it'll consider unnamed lists as vectors.
+	# Other advantage: loading metadata from RDA file brings integers with 8bytes while
+	#     loading it from JSON brings integers with 4bytes, however a simple as.numeric()
+	#     is suficient to double its size back to 8bytes (c() and as.vector() keep the
+	#     4bytes size.
+	# Cons: it makes strat.balance (and others) to increase in size because the .Dim
+	#     attribute turns into a named structure, instead of a unnamed one.
 	names(metadata$params$values) <- names(metadata$params$names) <- seq(params)
 	
 	metadata$params$combn <- perm(metadata$params$values)
@@ -61,4 +69,9 @@ run.backtest <- function(gen.positions.FUN, type = 'prod', debug = TRUE) {
 	} else if(type == 'sum') {
 		bt$strat.balance <- apply(bt$strat.returns, -1, function(x) cumsum(x) + 1)
 	}
+
+	# Removing names given by metadata
+	names(dim(bt$strat.balance)) <- NULL
+	names(dim(bt$strat.returns)) <- NULL
+	names(dim(bt$strat.positions)) <- NULL
 }

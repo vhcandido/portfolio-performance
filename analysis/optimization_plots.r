@@ -28,8 +28,8 @@ apply(balance, seq(dims)[-1], function(x) lines(x))
 
 # Same as
 # mat <- balance[dims[1], , , ...]
-sliced <- balance %>% slice.index(1)
-mat <- balance[which(sliced == dims[1])] %>% array(dims[-1])
+margin.idx <- balance %>% slice.index(MARGIN=1)
+mat <- balance[which(margin.idx == dims[1])] %>% array(dims[-1])
 
 ################################################################################
 # Plot pure R
